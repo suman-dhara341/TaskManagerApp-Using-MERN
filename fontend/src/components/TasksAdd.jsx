@@ -25,10 +25,10 @@ const Tasks = () => {
     setLoading(true);
     try {
       const response = id
-        ? await axios.patch(`http://localhost:3000/api/updatetask/${id}`, task, {
+        ? await axios.patch(`${import.meta.env.VITE_BACKENDURL}/api/updatetask/${id}`, task, {
           headers: { Authorization: token },
         })
-        : await axios.post('http://localhost:3000/api/taskadd', task, {
+        : await axios.post(`${import.meta.env.VITE_BACKENDURL}/api/taskadd`, task, {
           headers: { Authorization: token },
         });
 
@@ -47,7 +47,7 @@ const Tasks = () => {
   const taskUpdate = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:3000/api/onetaskshow/${id}`, {
+      const response = await axios.get(`${import.meta.env.VITE_BACKENDURL}/api/onetaskshow/${id}`, {
         headers: { Authorization: token },
       });
 

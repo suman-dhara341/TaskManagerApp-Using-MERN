@@ -10,7 +10,7 @@ const Admin = () => {
 
     const allUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/api/admin/alluserdata', {
+            const response = await axios.get(`${import.meta.env.VITE_BACKENDURL}/api/admin/alluserdata`, {
                 headers: {
                     Authorization: token
                 }

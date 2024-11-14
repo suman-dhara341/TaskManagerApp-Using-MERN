@@ -29,7 +29,7 @@ const Signup = () => {
                 toast.error("Passwords do not match!");
                 return;
             }
-            const respond = await axios.post('http://localhost:3000/api/register', user)
+            const respond = await axios.post(`${import.meta.env.VITE_BACKENDURL}/api/register`, user)
             if (respond.status === 200) {
                 toast.success(respond.data.message)
                 dispatch(setToken(respond.data.Token))

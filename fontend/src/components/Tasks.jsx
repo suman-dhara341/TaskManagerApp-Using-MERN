@@ -16,7 +16,7 @@ const Task = () => {
 
   const getTasks = async () => {
     try {
-      const respond = await axios.get('http://localhost:3000/api/showtask', {
+      const respond = await axios.get(`${import.meta.env.VITE_BACKENDURL}/api/showtask`, {
         headers: {
           Authorization: token
         }
@@ -39,7 +39,7 @@ const Task = () => {
     if (!confirmDelete) return;
     setLoading(true)
     try {
-      const response = await axios.delete(`http://localhost:3000/api/deletetask/${id}`, {
+      const response = await axios.delete(`${import.meta.env.VITE_BACKENDURL}/api/deletetask/${id}`, {
         headers: {
           Authorization: token
         }
@@ -60,7 +60,7 @@ const Task = () => {
 
   const getUserData = async () => {
     try {
-      const respond = await axios.get('http://localhost:3000/api/admin/user', {
+      const respond = await axios.get(`${import.meta.env.VITE_BACKENDURL}/api/admin/user`, {
         headers: {
           Authorization: token
         }

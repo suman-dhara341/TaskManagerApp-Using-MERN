@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 
 const Logout = () => {
     const dispatch = useDispatch();
-    console.log('nn');
+
     
 
     useEffect(() => {
