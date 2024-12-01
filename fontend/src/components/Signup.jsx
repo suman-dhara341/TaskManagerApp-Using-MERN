@@ -3,7 +3,7 @@ import { Navigate, NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import { setToken } from '../redux/counterSlice';
+import { setLoading, setToken } from '../redux/counterSlice';
 
 const Signup = () => {
     const [user, setUser] = useState({
@@ -15,6 +15,7 @@ const Signup = () => {
 
     const dispatch = useDispatch()
     const token = useSelector((state) => state.Token.token)
+    const loading = useSelector((state) => state.Token.loading)
 
 
 
@@ -24,6 +25,7 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         try {
+            dispatch(setLoading(true))
             e.preventDefault();
             if (user.password !== user.cpassword) {
                 toast.error("Passwords do not match!");
@@ -43,6 +45,8 @@ const Signup = () => {
             }
         } catch (error) {
             toast.error(error.response.data.message)
+        } finally {
+            dispatch(setLoading(false))
         }
     };
 
@@ -106,7 +110,7 @@ const Signup = () => {
                                 type="submit"
                                 className='bg-[#268D77] text-white p-3 rounded-xl h-12 mb-3'
                             >
-                                Sign Up
+                                {loading ? "Please Wait..." : "Sign Up"}
                             </button>
                             <NavLink to={'/'}>Login here</NavLink>
 

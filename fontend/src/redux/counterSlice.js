@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     token: localStorage.getItem('token') || null,
-    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
+    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
+    loading: false
 };
 
 export const counterSlice = createSlice({
@@ -22,10 +23,13 @@ export const counterSlice = createSlice({
         setUser: (state, action) => {
             state.user = action.payload;
             localStorage.setItem('user', JSON.stringify(action.payload));
+        },
+        setLoading: (state, action) => {
+            state.loading = action.payload
         }
     },
 });
 
-export const { setToken, removeToken, setUser } = counterSlice.actions;
+export const { setToken, removeToken, setUser, setLoading } = counterSlice.actions;
 
 export default counterSlice.reducer;

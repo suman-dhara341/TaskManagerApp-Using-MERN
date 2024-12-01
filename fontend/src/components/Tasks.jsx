@@ -3,19 +3,20 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { setUser } from '../redux/counterSlice';
+import { setLoading, setUser } from '../redux/counterSlice';
 
 
 const Task = () => {
   const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
   const token = useSelector((state) => state.Token.token);
   const dispatch = useDispatch()
   const navigate = useNavigate();
+  const loading = useSelector((state) => state.Token.loading)
 
 
   const getTasks = async () => {
     try {
+      dispatch(setLoading(true))
       const respond = await axios.get(`${import.meta.env.VITE_BACKENDURL}/api/showtask`, {
         headers: {
           Authorization: token
@@ -27,7 +28,7 @@ const Task = () => {
     } catch (error) {
       toast.error(error.response?.data?.message || "Error fetching tasks");
     } finally {
-      setLoading(false);
+      dispatch(setLoading(false));
     }
   };
 

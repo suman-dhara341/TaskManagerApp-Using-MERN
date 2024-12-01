@@ -3,7 +3,7 @@ import { Navigate, NavLink } from 'react-router-dom';
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux'
-import { setToken } from '../redux/counterSlice';
+import { setLoading, setToken } from '../redux/counterSlice';
 
 const Login = () => {
     const [user, setUser] = useState({
@@ -13,6 +13,7 @@ const Login = () => {
 
     const dispatch = useDispatch()
     const token = useSelector((state) => state.Token.token)
+    const loading = useSelector((state) => state.Token.loading);
 
 
     const handleChange = (e) => {
@@ -24,6 +25,8 @@ const Login = () => {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
+            dispatch(setLoading(true));
+            
             const respond = await axios.post(`${import.meta.env.VITE_BACKENDURL}/api/login`, user)
             if (respond.status === 200) {
                 toast.success(respond.data.message)
@@ -35,6 +38,8 @@ const Login = () => {
             }
         } catch (error) {
             toast.error(error.response.data.message)
+        } finally {
+            dispatch(setLoading(false))
         }
     };
 
@@ -76,7 +81,7 @@ const Login = () => {
                                 type="submit"
                                 className='bg-[#268D77] text-white p-3 rounded-xl h-12 mb-3'
                             >
-                                Login
+                                {loading ? "Please Wait..." : "Login"}
                             </button>
                             <NavLink to={'/signup'}>Signup here</NavLink>
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, NavLink, useNavigate, useParams } from 'react-router-dom';
 
 const Tasks = () => {
   const [task, setTask] = useState({
@@ -83,7 +83,9 @@ const Tasks = () => {
           <div className="animate-spin rounded-full border-t-4 border-blue-500 w-16 h-16"></div>
         </div>
       ) : (
+
         <div className="px-24 pt-4 min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+
           <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-8 transition duration-300">
             <div className="mb-4">
               <label htmlFor="title" className="block text-gray-700 dark:text-gray-300 font-medium mb-2">Title</label>
@@ -123,10 +125,15 @@ const Tasks = () => {
                 placeholder="Enter task description"
               />
             </div>
+            <div className='flex items-center justify-between'>
+              <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500 transition duration-300">
+                {id ? 'Update' : 'Add Task'}
+              </button>
+              <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500 transition duration-300 mb-4">
+                <NavLink to={'/tasks'}>Back</NavLink>
+              </button>
+            </div>
 
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500 transition duration-300">
-              {id ? 'Update' : 'Add Task'}
-            </button>
           </form>
         </div>
       )}

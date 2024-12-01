@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
 
 const Admin = () => {
     const [users, setUsers] = useState([]);
@@ -35,8 +37,13 @@ const Admin = () => {
     return (
         <div className="p-4">
             <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
+            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500 transition duration-300 mb-4">
+                <NavLink to={'/tasks'}>Go to Home Page</NavLink>
+            </button>
             {loading ? (
-                <p>Loading users...</p>
+                <div className="flex justify-center items-center h-64">
+                    <div className="animate-spin rounded-full border-t-4 border-blue-500 w-16 h-16"></div>
+                </div>
             ) : users.length > 0 ? (
                 <ul>
                     <li>Total Users: {users.length}</li>
